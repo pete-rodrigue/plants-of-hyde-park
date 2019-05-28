@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+	<title>Plants of Hyde Park</title>
+	<link rel="stylesheet" href="fireflies.css">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- leaflet scripts -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+    <script src='https://rawgithub.com/soulwire/sketch.js/master/js/sketch.min.js'></script>
+    <!-- jquery script -->
+    <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+</head>
+
+
+<body>
+
+	<!-- background animations -->
+	<div class="stars"></div>
+	<div class="twinkling"></div>
+
+	<!-- div for all the content of our page -->
+	<div id="page_content">
+
+		<div id="title">Plants of Hyde Park</div>
+		<div id="mapid"></div>
+
+		<div>
+		<h1 style="font-size:150%; color: #ffffff"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform" style="color:white">Add your own plants!</a></h1>
+		</div>
+
+		<div>
+			<h1 style="font-size:100%; text-align: right; color: #ffffff"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform" style="color:white">About</a></h1>
+		</div>
+	
+	</div>
+
+
+	<!-- script for the leaflet map -->
+	<script>
+
+		var crickets_audio = new Audio('crickets_at_night.mp3');
+		var crows_audio = new Audio('crows.mp3');
+		var falcon_audio = new Audio('falcon.mp3');
+		var meadowlark_audio = new Audio('meadowlark.mp3');
+		var rain_audio = new Audio('rain.mp3');
+		var train_audio = new Audio('train.mp3');
+		var sounds_list = [crickets_audio, crows_audio, falcon_audio, meadowlark_audio, rain_audio, train_audio, train_audio]
+		var sounds_list_max = sounds_list.length - 1
+
+	   // Load the data using the Sheety api
+	   var temp_data = $.ajax({
+	    url:"https://api.sheety.co/b3c4e772-caec-4cff-8452-f63bf3c24a43",
+	    dataType: "json",
+	    success: console.log("data successfully loaded."),
+	    error: function (xhr) {
+	      alert(xhr.statusText)
+	    }
+	  })
+
+	   // When the data is loaded from the Sheety api, start plotting the data
+	   $.when(temp_data).done(function() {
+
+	     var mydata = temp_data.responseJSON;
+	     var mymap = L.map('mapid').setView([41.8, -87.6], 13);
+
+	     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+	      maxZoom: 18,
+	      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+	      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+	      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+	      id: 'mapbox.streets'
+	    }).addTo(mymap);
+
+	     // This loop adds all our data points by looping through the dataframe mydata
+	     for (i=0; i<mydata.length; i++) {
+	      var record = mydata[i];
+	      
+	      var plant_name = record['whatKindOfPlantDoYouThinkThisIs?'];
+	      var plant_lat = record['enterTheLatitude:'];
+	      var plant_lon = record['enterTheLongitude:'];
+	      var fun_facts = record['tellUsAboutYourPlant!'];
+	      var season = record['season'];
+
+	      if(!record['photo1']) {
+	      	var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts
+	      } else if (record['photo1'] & !record['photo2']) {
+	        var image1 = 'https://drive.google.com/uc?id=' + record['photo1'].split("id=")[1];
+	        var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts + "<br/>"+ "<br><a href=" + image1 + ">Image 1</a>"
+	      } else {
+	        var image2 = 'https://drive.google.com/uc?id=' + record['photo2'].split("id=")[1];
+	        var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts + "<br/>"+ "<br><a href=" + image1 + ">Image 1</a>" + "</b><br><a href=" + image2 + ">Image 2</a>"
+	      }
+	      
+	      if(season=='Spring'){
+	      	var circle_color = "#8CBA80";
+	      } else if(season=='Summer'){
+	      	var circle_color = "#AC3931"
+	      } else if(season=='Fall'){
+	      	var circle_color = "#E5D352"
+	      } else {
+	      	var circle_color = "#658E9C"
+	      }
+
+	      L.circle([plant_lat, plant_lon], radius=50, {color: circle_color}).addTo(mymap).bindPopup(mypopup);
+
+	    }
+
+	    // on-click marker
+		mymap.on('click', function(e) {      
+
+		        var popLocation= e.latlng;
+		        var popup = L.popup()
+		        .setLatLng(popLocation)
+		        .setContent('<p>Copy the latitude and longitude below:</p>' + e.latlng.lat + ", " + e.latlng.lng + '<br/>' + '<a href="https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform"><br/>and add your own plant here</a>')
+		        .openOn(mymap);  
+
+		        /// 
+		        setTimeout(function(){
+		        	var random = Math.floor(Math.random() * +sounds_list_max)
+		        	sounds_list[random].play();
+		        }, 5);
+		    });
+
+	  });
+
+
+	</script>
+
+</body>
+</html>
+
+
+
+<!-- 
+Audio files taken from here:
+Rain:
+https://www.soundjay.com/rain-sound-effect.html
+Meadowlark:
+http://soundbible.com/2180-Meadowlark.html
+Falcon:
+http://soundbible.com/1974-Falcon.html
+Crows:
+http://soundbible.com/1887-2-Crows-Calling.html
+Train:
+http://soundbible.com/tags-honk.html
+Crickets:
+http://soundbible.com/365-Crickets-At-Night.html
+
+Night starts css by WebSonick
+https://codepen.io/WebSonick/pen/vjmgu
+
+Map created using Leaflet:
+https://leafletjs.com/
+
+Google sheet API provided by Sheety:
+https://sheety.co/
+ -->
