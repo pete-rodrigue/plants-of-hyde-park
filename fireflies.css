@@ -92,14 +92,14 @@ h1{
 
 #title{
   color: #fff;
-  font-size: 75px;
+  font-size: 60px;
   z-index: 7;
   text-align: center;
 }
 
 #mapid{
   z-index: 8;
-  height: 80%;
+  height: 60%;
   width: 100%;
   text-align: center;
   margin: auto;
