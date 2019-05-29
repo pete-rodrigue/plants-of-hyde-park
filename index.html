@@ -85,12 +85,13 @@
 	      var fun_facts = record['tellUsAboutYourPlant!'];
 	      var season = record['season'];
 
-	      if(!record['photo1']) {
+	       if(!record['photo1']) {
 	      	var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts
 	      } else if (record['photo1'] & !record['photo2']) {
 	        var image1 = 'https://drive.google.com/uc?id=' + record['photo1'].split("id=")[1];
 	        var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts + "<br/>"+ "<br><a href=" + image1 + ">Image 1</a>"
-	      } else {
+	      } else if (record['photo2']) {
+	      	var image1 = 'https://drive.google.com/uc?id=' + record['photo1'].split("id=")[1];
 	        var image2 = 'https://drive.google.com/uc?id=' + record['photo2'].split("id=")[1];
 	        var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts + "<br/>"+ "<br><a href=" + image1 + ">Image 1</a>" + "</b><br><a href=" + image2 + ">Image 2</a>"
 	      }
