@@ -101,12 +101,12 @@
 	      } else if(season=='Summer'){
 	      	var circle_color = "#AC3931"
 	      } else if(season=='Fall'){
-	      	var circle_color = "#E5D352"
+	      	var circle_color = "#EDAE49"
 	      } else {
 	      	var circle_color = "#658E9C"
 	      }
 
-	      L.circle([plant_lat, plant_lon], radius=50, {color: circle_color}).addTo(mymap).bindPopup(mypopup);
+	      L.circle([plant_lat, plant_lon], radius=40, {color: circle_color}).addTo(mymap).bindPopup(mypopup);
 
 	    }
 
