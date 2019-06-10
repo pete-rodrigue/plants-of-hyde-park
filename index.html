@@ -174,7 +174,8 @@
 		        var popup = L.popup()
 		        .setLatLng(popLocation)
 			///https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform?entry.1841403234=-87&entry.250839846=43
-		        .setContent('<p>Copy the latitude and longitude below:</p>' + e.latlng.lat + ", " + e.latlng.lng + '<br/>' + '<a href="https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform"><br/>and add your own plant here</a>')
+			var url_string = "https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform?entry.1841403234=" + e.latlng.lng.toString() + "&entry.250839846=" + e.latlng.lat.toString();
+		        .setContent('<p>Copy the latitude and longitude below:</p>' + e.latlng.lat + ", " + e.latlng.lng + '<br/>' + '<a href=url_string><br/>and add your own plant here</a>')
 		        .openOn(mymap);  
 
 		        /// 
