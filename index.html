@@ -173,10 +173,8 @@
 		        var popLocation= e.latlng;
 		        var popup = L.popup()
 		        .setLatLng(popLocation)
-			///https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform?entry.1841403234=-87&entry.250839846=43
 			var url_string = "https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform?entry.1841403234=" + e.latlng.lng + "&entry.250839846=" + e.latlng.lat;
-			console.log(url_string)
-		        .setContent("<a href=`${url_string}`><br/>and add your own plant here</a>")
+		        .setContent(<a href="`${url_string}`><br/>and add your own plant here"</a>)
 		        .openOn(mymap);  
 
 		        /// 
