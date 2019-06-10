@@ -174,7 +174,9 @@
 		        var popup = L.popup()
 		        .setLatLng(popLocation)
 			var url_string = "https://docs.google.com/forms/d/e/1FAIpQLSdR0pz8CR-NEJD-j--7wjqpUcu_4-uQX_3bpp96Yq3IXn6IjQ/viewform?entry.1841403234=" + e.latlng.lng + "&entry.250839846=" + e.latlng.lat;
-		        .setContent(<a href="`${url_string}`><br/>and add your own plant here"</a>)
+			var popup_string = '<a href="' + url_string + '"' + '><br/>and add your own plant here</a>';
+			console.log(popup_string);
+		        .setContent(popup_string);
 		        .openOn(mymap);  
 
 		        /// 
