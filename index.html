@@ -146,11 +146,57 @@
 	      	var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts
 	      } else if (record['photo1'] && !record['photo2']) {
 	        var image1 = 'https://drive.google.com/uc?id=' + record['photo1'].split("id=")[1];
-	        var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts + "<br/>"+ "<br><a href=" + image1 + ">Image</a>"
+	        var imageHTML1 = '<a href="' + image1 + '"><img src="' + image1 + '" style="display:block;margin-left: auto;margin-right: auto;width:200px;height:auto;"></a>';
+	        var description = plant_name + "<br/>" + season + "<br/>" + fun_facts; 
+	        var mypopup =  '<div class="tabs">' +
+					            '<div class="tab" id="tab-1">' +
+					            '<div class="content">' +
+					            '<p>' + description + '</p>' +
+					            '</div>' +
+					            '</div>' +
+
+					            '<div class="tab" id="tab-2">' +
+					            '<div class="content">' +
+					            '<p>' + imageHTML1 + '</p>' +
+					            '</div>' +
+					            '</div>' +
+					    
+					            '<ul class="tabs-link">' +
+					            '<li class="tab-link"> <a href="#tab-1"><span>Who am I? &nbsp;&nbsp; </span></a></li>' +
+					            '<li class="tab-link"> <a href="#tab-2"><span>Photo &nbsp;&nbsp;</span></a></li>' +
+					            '</ul>' +
+					        '</div>';
 	      } else if (record['photo2']) {
 	      	var image1 = 'https://drive.google.com/uc?id=' + record['photo1'].split("id=")[1];
 	        var image2 = 'https://drive.google.com/uc?id=' + record['photo2'].split("id=")[1];
-	        var mypopup = plant_name + "<br/>" + season + "<br/>" + fun_facts + "<br/>"+ "<br><a href=" + image1 + ">Image</a>" + "</b><br><a href=" + image2 + ">Image</a>"
+	        var imageHTML1 = '<a href="' + image1 + '"><img src="' + image1 + '" style="display:block;margin-left: auto;margin-right: auto;width:200px;height:auto;"></a>';
+	        var imageHTML2 = '<a href="' + image2 + '"><img src="' + image2 + '" style="display:block;margin-left: auto;margin-right: auto;width:200px;height:auto;"></a>';
+	        var description = plant_name + "<br/>" + season + "<br/>" + fun_facts; 
+	        var mypopup =  '<div class="tabs">' +
+					            '<div class="tab" id="tab-1">' +
+					            '<div class="content">' +
+					            '<p>' + description + '</p>' +
+					            '</div>' +
+					            '</div>' +
+
+					            '<div class="tab" id="tab-2">' +
+					            '<div class="content">' +
+					            '<p>' + imageHTML1 + '</p>' +
+					            '</div>' +
+					            '</div>' +
+					    
+					            '<div class="tab" id="tab-3">' +
+					            '<div class="content">' +
+					            '<p>' + imageHTML2 + '</p>' +
+					            '</div>' +
+					            '</div>' +
+					    
+					            '<ul class="tabs-link">' +
+					            '<li class="tab-link"> <a href="#tab-1"><span>Who am I? &nbsp;&nbsp; </span></a></li>' +
+					            '<li class="tab-link"> <a href="#tab-2"><span>Photo 1 &nbsp;&nbsp;</span></a></li>' +
+					            '<li class="tab-link"> <a href="#tab-3"><span>Photo 2</span></a></li>' +
+					            '</ul>' +
+					        '</div>';
 	      }
 	      
 	      if(season=='Spring'){
