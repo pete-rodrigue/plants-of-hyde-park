@@ -209,7 +209,7 @@
 	      	var circle_color = "#658E9C"
 	      }
 
-	      L.circle([plant_lat, plant_lon], radius=40, {color: circle_color}).addTo(mymap).bindPopup(mypopup);
+	      L.circle([plant_lat, plant_lon], radius=40, {color: circle_color}).addTo(mymap).bindPopup(mypopup, {className: "plant-info"});
 
 	    }
 
