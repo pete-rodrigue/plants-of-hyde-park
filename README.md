@@ -1,3 +1,4 @@
+_A few thoughts on this project_<br/><br/>
 What civic issue does this address? *<br/><br/>
 
 They say your innovations should emerge from problems you know well. That is why, as a recreational forager, I chose to make this map. I've often thought, "I wish there were a guide to my neighborhood’s edible plants, something I could consult without having to ride metro for two hours to take a guided plant walk in a distant suburb." 
